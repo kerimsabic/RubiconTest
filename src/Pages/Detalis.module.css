@@ -1,0 +1,106 @@
+.container {
+    background: rgb(177,183,191);
+background: linear-gradient(0deg, rgba(177,183,191,1) 50%, rgba(228,222,255,1) 100%);
+    height: 95vh;
+    border-radius: 10px;
+    -webkit-box-shadow: -1px -2px 63px -15px rgba(0, 0, 0, 0.33);
+    -moz-box-shadow: -1px -2px 63px -15px rgba(0, 0, 0, 0.33);
+    box-shadow: -1px -2px 63px -15px rgba(0, 0, 0, 0.33);
+}
+
+.backButton {
+    padding-top: 20px;
+    margin-inline: 20px;
+    font-size: 20px;
+
+    border: 0px;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.backButtonLink {
+    margin-top: 50px;
+    margin-inline: 20px;
+    font-size: 20px;
+    border: 0px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    font-style: bold;
+
+}
+
+.backButton :hover {
+    color: blue;
+
+}
+
+.imageCover {
+
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+
+
+
+}
+
+.imageCover img {
+    margin-top: 20px;
+    margin-inline: 10px;
+    object-fit: cover;
+    width: 100%;
+    height: 500px;
+    border-radius: 5px;
+
+}
+
+.title {
+    margin-inline: 50px;
+    margin-block: 50px;
+    color: white;
+
+}
+
+
+
+.overview {
+    margin-inline: 50px;
+    margin-block: 50px;
+    color: white;
+
+}
+
+.overview p {
+    font-size: 20px;
+}
+
+
+@media screen and (max-width: 700px) {
+    .imageCover img {
+        object-fit: contain;
+        height: 300px;
+    }
+
+    .title {
+        margin-inline: 30px;
+        margin-block: 30px;
+
+    }
+
+    .title h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .overview {
+        margin-inline: 20px;
+        margin-block: 20px;
+
+    }
+
+    .overview p {
+        font-size: 15px;
+    }
+}
