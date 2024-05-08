@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 
-src/utils/data.ts
+data.ts
 
 
 

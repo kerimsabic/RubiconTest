@@ -1,6 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+html {
+    font-size: 15px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: gray;
+    max-width: 100vw;
+
+}
+
+
+/*
 .container {
-    background: rgb(177,183,191);
-background: linear-gradient(0deg, rgba(177,183,191,1) 50%, rgba(228,222,255,1) 100%);
+    background: rgb(177, 183, 191);
     height: 95vh;
     border-radius: 10px;
     -webkit-box-shadow: -1px -2px 63px -15px rgba(0, 0, 0, 0.33);
@@ -23,16 +46,15 @@ background: linear-gradient(0deg, rgba(177,183,191,1) 50%, rgba(228,222,255,1) 1
     margin-top: 50px;
     margin-inline: 20px;
     font-size: 20px;
-    border: 0px;
     cursor: pointer;
     text-decoration: none;
     color: white;
-    font-style: bold;
+    font-weight: bold;
 
 }
 
 .backButton :hover {
-    color: blue;
+    color: rgb(52, 52, 52);
 
 }
 
@@ -56,10 +78,14 @@ background: linear-gradient(0deg, rgba(177,183,191,1) 50%, rgba(228,222,255,1) 1
 
 }
 
+.imageCover img:hover {}
+
 .title {
     margin-inline: 50px;
     margin-block: 50px;
     color: white;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
 
 }
 
@@ -74,13 +100,93 @@ background: linear-gradient(0deg, rgba(177,183,191,1) 50%, rgba(228,222,255,1) 1
 
 .overview p {
     font-size: 20px;
+    font-style: italic;
 }
 
 
-@media screen and (max-width: 700px) {
-    .imageCover img {
+
+
+
+.movieBanner {
+
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 0;
+    overflow-y: hidden;
+    z-index: 0;
+    position: relative;
+    background: #131722;
+}
+
+
+
+.imageCover {
+    margin: 100px;
+    height: 70vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 0;
+    object-fit: contain;
+    overflow-y: hidden;
+}
+
+.cover {
+    background: rgba(0, 0, 0, 0.623);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10rem 0 7rem;
+    background: #131722;
+}
+
+.secondSection {
+    background: #131722;
+}
+
+.secondImageDiv img {
+    width: 346px;
+    height: 512px;
+    position: absolute;
+    top: 460px;
+    z-index: 300000;
+    left: 150px;
+
+}
+
+h2 {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    top: 610px;
+    z-index: 300000;
+    left: 420px;
+    color: white;
+}
+
+
+@media screen and (max-width:1200px) {
+    .secondImageDiv img {
+        display: none;
+
+    }
+}
+
+
+@media screen and (width: 700px) {
+    .imageCover {
+        margin: 0;
+        height: 70vh;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding: 0;
         object-fit: contain;
-        height: 300px;
+        overflow-y: hidden;
     }
 
     .title {
@@ -103,4 +209,148 @@ background: linear-gradient(0deg, rgba(177,183,191,1) 50%, rgba(228,222,255,1) 1
     .overview p {
         font-size: 15px;
     }
+}*/
+
+
+
+.movieDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .movieBanner {
+    flex: 1;
+    position: relative;
+    
+  }
+  
+  .imageCover {
+    width: 100%;
+    height: 70vh; 
+    background-size: cover;
+    background-position: center;
+    
+  }
+
+  .backButtonLinkImage {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    position: fixed;
+    z-index: 3;
+  }
+
+  .backButtonLinkImage::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px; /* Adjust the position of the line as needed */
+    width: 100%;
+    height: 4px;
+    background-color: red;
+  }
+  
+  .secondSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px;
+    background: #131722;
+  }
+  
+  .secondImageDiv {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: -280px;
+  }
+  
+  .posterImage {
+    width: auto;
+    max-height: 500px; /* Adjust height as needed */
+  }
+  
+  .movieTitle {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .description {
+    flex: 2;
+    padding: 0 20px;
+    
+  }
+
+  .description h2{
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    position: relative;
+    text-transform: uppercase;
+    
+  }
+
+  .description h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px; 
+    width: 100%;
+    height: 4px;
+    background-color: red;
 }
+  .description h3{
+    color: white;
+    font-size: 35px;
+    
+  }
+  .icon{
+    color: red;
+    font-size: 50px;
+  }
+  span{
+    color: white;
+    font-size: 25px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    gap: 5px
+  }
+  .bellowTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .secondSection {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .secondImageDiv {
+      align-items: stretch;
+    }
+    .posterImage{
+        display: none;
+    }
+  
+    .posterImage {
+      max-width: 100%;
+      max-height: none;
+    }
+  }
