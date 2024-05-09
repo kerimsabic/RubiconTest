@@ -5,7 +5,6 @@ import MovieCard from '../Components/MovieCard';
 import { useMovieContext } from '../context/MovieContext';
 import axios from 'axios';
 import { API } from '../utils/data'
-import { useLocation } from 'react-router-dom';
 import Spinner from '../Components/Spinner/Spinner';
 
 interface SearchResult {

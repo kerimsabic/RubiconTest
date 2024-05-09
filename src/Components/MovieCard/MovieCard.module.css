@@ -40,11 +40,15 @@ h4 {
     transform-origin: center;
 }
 
+img{
+    transition: transform 0.5s ease-in-out;
+}
+
  img:hover{
     --img-scale: 1.5;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 36px 0px;
     transform: scale(var(--img-scale));
-    transition: transform 0.5s ease-in-out;
+    
     
 }
 

@@ -49,19 +49,19 @@ body{
     padding-left: 16px;
     padding-right: 16px;
     font-size: 18px;
+    
 }
 
 .btn.active {
     box-shadow: #7d043c 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0, rgba(45, 35, 66, .3) 0 7px 13px -3px, #b70303 0 -3px 0 inset;
     background-image: radial-gradient(100% 100% at 100% 0, #550613 0, #c20303 100%);
     color: white;
-    transform: scale(1.2);
+   
 }
 
 .btn:hover {
     box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #ac0000 0 -3px 0 inset;
     background-image: radial-gradient(100% 100% at 100% 0, #550613 0, #c20303 100%);
-    transform: translateY(-7px);
     color: white;
 }
 

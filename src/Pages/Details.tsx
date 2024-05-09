@@ -76,12 +76,13 @@ const DetailsPage = () => {
 
     <>
       <div className={DetailsCSS.movieDetailsContainer} >
+        <div className={DetailsCSS.backDiv}><Link to="/" className={DetailsCSS.backButtonLinkImage}>
+          &lt; Back
+        </Link>
+        </div>
         <section className={DetailsCSS.movieBanner}>
           <div className={DetailsCSS.imageCover} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500/${details.backdrop_path || details.poster_path})` }}></div>
-          <div><Link to="/" className={DetailsCSS.backButtonLinkImage}>
-            &lt; Back
-          </Link>
-          </div>
+
         </section>
 
         <section className={DetailsCSS.secondSection}>
