@@ -12,6 +12,9 @@ interface MovieContextState {
   setMovieData: React.Dispatch<{ title: string; backdrop_path: string, id:string, poster_path:string }[]>;
   tvshowData: { name: string; backdrop_path: string, id:string, poster_path:string }[];
   setTvShowData: React.Dispatch<{ name: string; backdrop_path: string, id:string, poster_path:string }[]>;
+  moviesLoading:boolean;
+  tvShowsLoading:boolean;
+  
 }
 
 const MovieContext = createContext<MovieContextState | undefined>(undefined);
@@ -33,42 +36,59 @@ export const MovieProvider: React.FC<MovieProviderProps> = ({ children }) => {
   const [movies, setMovies] = useState(false);
   const [movieData, setMovieData] = useState<{ title: string; backdrop_path: string, id:string,poster_path:string }[]>([]);
   const [tvshowData, setTvShowData] = useState<{ name: string; backdrop_path: string, id:string, poster_path:string }[]>([]);
+  const [moviesLoading, setMoviesLoading] = useState<boolean>(false);
+  const [tvShowsLoading, setTvShowsLoading] = useState(false);
+
 
   useEffect(() => {
-    const options = {
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${BearerToken}`
-      }
-    };
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get(
-          'https://api.themoviedb.org/3/discover/movie?include_video=true&language=en-US&page=1&sort_by=popularity.desc&top=10', options
-        );
-        setMovieData(response.data.results);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-      }
-    };
-
-    const fetchTvShows = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/discover/tv?api_key=${API}`
-        );
-        setTvShowData(response.data.results);
-      } catch (error) {
-        console.error('Error fetching TV shows:', error);
-      }
-    };
-
     if (movies) {
+      setMoviesLoading(true);
       fetchMovies();
-    } else if (tvShows) {
+    }
+  }, [movies]);
+
+  useEffect(() => {
+    if (tvShows) {
+      setTvShowsLoading(true);
       fetchTvShows();
     }
-  }, [movies, tvShows]);
+  }, [tvShows]);
+
+
+
+  const fetchMovies = async () => {
+    try {
+      const response = await axios.get(
+        'https://api.themoviedb.org/3/discover/movie?include_video=true&language=en-US&page=1&sort_by=popularity.desc&top=10', {
+          headers: {
+            accept: 'application/json',
+            Authorization: `Bearer ${BearerToken}`
+          }
+        }
+      );
+      setMovieData(response.data.results);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    } finally{
+      setMoviesLoading(false)
+    }
+  };
+
+  const fetchTvShows = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/discover/tv?api_key=${API}`
+      );
+      setTvShowData(response.data.results);
+    } catch (error) {
+      console.error('Error fetching TV shows:', error);
+    } finally{
+      setTvShowsLoading(false);
+    }
+  };
+
+
+  
 
   const value: MovieContextState = {
     tvShows,
@@ -79,6 +99,8 @@ export const MovieProvider: React.FC<MovieProviderProps> = ({ children }) => {
     setMovieData,
     tvshowData,
     setTvShowData,
+    moviesLoading,
+    tvShowsLoading,
   };
 
   return <MovieContext.Provider value={value}>{children}</MovieContext.Provider>;

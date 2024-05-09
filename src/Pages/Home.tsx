@@ -5,7 +5,8 @@ import MovieCard from '../Components/MovieCard';
 import { useMovieContext } from '../context/MovieContext';
 import axios from 'axios';
 import { API } from '../utils/data'
-import { useLocation, Location } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Spinner from '../Components/Spinner/Spinner';
 
 interface SearchResult {
   id: string;
@@ -26,41 +27,31 @@ const debounce = (func: Function, delay: number) => {
 };
 
 const Home = () => {
-  const { tvShows, setTvShows, movies, setMovies, tvshowData, movieData } = useMovieContext();
+  const { tvShows, setTvShows, movies, setMovies, tvshowData, movieData, tvShowsLoading, moviesLoading } = useMovieContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [displayData, setDisplayData] = useState<SearchResult[]>([]);
 
 
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.searchTerm) {
-      setSearchTerm(location.state.searchTerm);
-    }
-  }, [location.state]);
+  const handleMediaClick = (type: string) => {
+  setTvShows(type === 'tv');
+  setMovies(type === 'movie');
+  if (searchTerm.length >= 3) {
+    searchType(type);
+  } else {
+    setDisplayData(type === 'tv' ? tvshowData : movieData);
+  }
+};
 
+const handleTvShowsClick = () => {
+  handleMediaClick('tv');
+};
 
-  const handleTvShowsClick = () => {
-    setTvShows(true);
-    setMovies(false);
-    if (searchTerm.length >= 3) {
-      searchTMDB('tv');
-    } else {
-      setDisplayData(tvshowData);
-    }
-  };
+const handleMoviesClick = () => {
+  handleMediaClick('movie');
+};
 
-  const handleMoviesClick = () => {
-    setTvShows(false);
-    setMovies(true);
-    if (searchTerm.length >= 3) {
-      searchTMDB('movie');
-    } else {
-      setDisplayData(movieData);
-    }
-  };
-
-  const searchTMDB = async (type: string) => {
+  const searchType = async (type: string) => {
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/${type}?query=${searchTerm}&api_key=${API}&page=1`
@@ -75,9 +66,9 @@ const Home = () => {
     if (searchTerm.length >= 3) {
       const debouncedSearch = debounce(() => {
         if (tvShows) {
-          searchTMDB('tv');
+          searchType('tv');
         } else {
-          searchTMDB('movie');
+          searchType('movie');
         }
       }, 1000);
 
@@ -103,6 +94,8 @@ const Home = () => {
 
   
 
+
+
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchTerm = e.target.value;
     setSearchTerm(newSearchTerm);
@@ -116,10 +109,24 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const clearSearchTermOnRefresh = () => {
+      localStorage.removeItem('searchTerm');
+    };
+    window.addEventListener('beforeunload', clearSearchTermOnRefresh);
+
+    return () => {
+      window.removeEventListener('beforeunload', clearSearchTermOnRefresh);
+    };
+  }, []);
+
   
 
 
+
+
   
+
 
   return (
     <>
@@ -156,32 +163,28 @@ const Home = () => {
       </section>
 
 
-      {/*  <section className={HomeCSS.browse} id="browse">
-        <div className={HomeCSS.container}>
-          <h3>Search Movies</h3>
-          <form id="form">
-            <input id="search" type="text" placeholder="Enter Movie" />
-          </form>
-        </div>
-      </section>*/}
+
 
 
       <section className={HomeCSS.movies}>
         <div className={HomeCSS.container}>
 
-          {displayData.length === 0 ? (
+          {tvShowsLoading || moviesLoading ? (
             <div>
-              <p>Searching..</p>
-              <p>No results</p>
+              <Spinner />
             </div>
 
+          ) : displayData.length===0 ? (
+            <div>
+              No such results
+            </div>
           ) : (
             displayData.map((data, index) => (
               <div className={HomeCSS.movie}>
                 <Link to={{
                   pathname: `/details/${tvShows ? 'tv' : 'movie'}/${data.id}`,
-                 
-                  
+
+
                 }} key={index} className={HomeCSS.HomeLink}>
                   {tvShows ? (
                     <MovieCard title={data.name || ''} backdrop_path={data.backdrop_path} poster_path={data.poster_path} />

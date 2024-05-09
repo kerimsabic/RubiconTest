@@ -1,5 +1,20 @@
 # React + TypeScript + Vite
 
+In order to run the project just run this command: npm i 
+Create data.ts file inside the src/utils folder.
+Insite the data.ts file create 2 variables: 
+export const API = 'put your api token from the themoviedb.org'
+export const BearerToken = 'put your Bearer token from the themoviedb.org'
+
+You can fint both on this link: https://www.themoviedb.org/settings/api, you will need to log in or create an account!
+To start the page, just run this command: npm run dev
+Page shoud be up now!
+
+
+
+
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
